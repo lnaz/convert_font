@@ -87,3 +87,12 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# added by lnaz
+# images
+*.png
+*.jpg
+
+# fonts
+*.ttf
+*.otf

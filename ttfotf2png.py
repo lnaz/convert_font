@@ -7,16 +7,24 @@ from PIL import ImageFont
 
 CAPS = [chr(i) for i in range(65, 65 + 26)]
 
-def convert_binary_img(pil_img, threshold=128):
+def pil2num(pil_img):
     num_img = np.asarray(pil_img)
     num_img.flags.writeable = True
+    return num_img
+
+def num2pil(num_img):
+    pil_img = Image.fromarray(np.uint8(num_img))
+    return pil_img
+
+def convert_binary_img(pil_img, threshold=128):
+    num_img = pil2num(pil_img)
     for row_i in range(len(num_img)):
         for col_i in range(len(num_img[0])):
             if num_img[row_i][col_i] < threshold:
                 num_img[row_i][col_i] = 0
             else:
                 num_img[row_i][col_i] = 255
-    binary_img = Image.fromarray(np.uint8(num_img))
+    binary_img = num2pil(num_img)
     return binary_img
 
 def draw_char(char, font, canvas_size):
